@@ -4,6 +4,7 @@
     "description": "Git difftool command in context menu",
     "version": "0.0.1",
     "publisher": "narekmal",
+    "icon": "image/Git-Icon.png",
     "engines": {
         "vscode": "^1.10.0"
     },
