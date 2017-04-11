@@ -1,7 +1,8 @@
 # Run git difftool 
 
 Visual Studio Code extension that adds 'Run git difftool' command to files' context menu in source control explorer
-![Output sample](image/Animation.gif)
+<br />
+<p><img src="image/Animation.gif" width="600"></p>
 
 # Installation
 
