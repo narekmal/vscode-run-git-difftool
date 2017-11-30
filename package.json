@@ -2,7 +2,7 @@
     "name": "vscode-run-git-difftool",
     "displayName": "Run git difftool",
     "description": "Git difftool command in context menu",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "narekmal",
     "icon": "image/Git-Icon.png",
     "engines": {
