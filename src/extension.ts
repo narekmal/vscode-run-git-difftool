@@ -3,6 +3,17 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
+function runShellCommand(command) {
+    var exec = require('child_process').exec;
+
+    exec(command, function(error, stdout, stderr) {
+        // command output is in stdout
+        console.log(JSON.stringify(error));
+        console.log(JSON.stringify(stdout));
+        console.log(JSON.stringify(stderr));
+    });
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -15,12 +26,17 @@ export function activate(context: vscode.ExtensionContext) {
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
     let disposable = vscode.commands.registerCommand('extension.runGitDifftool', (param) => {
-        // Enable command only when run from context menu
+        
         if(param == undefined) {
-            vscode.window.showWarningMessage('Command should be run from source control context menu');
-            return
+            // If param is undefined, the command is run through command console, 
+            // so run git difftool on the project root directory
+            var projectDirName = vscode.workspace.rootPath;
+            var cmd = 'cd /d ' + projectDirName + ' & ' + 'git difftool';
+            runShellCommand(cmd);
+            return;
         }
 
+        // Command is run on a file through context menu, run git difftool on the file
         var path = require('path');
         var fileFullPath = param._resourceUri._path;
 
@@ -31,15 +47,9 @@ export function activate(context: vscode.ExtensionContext) {
         var dirName = path.normalize(path.dirname(fileFullPath));
         var fileName = path.basename(fileFullPath);
 
-        var exec = require('child_process').exec;
         var cmd = 'cd /d ' + dirName + ' & ' + 'git difftool ' + fileName;
 
-        exec(cmd, function(error, stdout, stderr) {
-            // command output is in stdout
-            console.log(JSON.stringify(error));
-            console.log(JSON.stringify(stdout));
-            console.log(JSON.stringify(stderr));
-        });
+        runShellCommand(cmd);
     });
 
     context.subscriptions.push(disposable);
