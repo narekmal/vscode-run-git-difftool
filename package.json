@@ -23,7 +23,8 @@
         "menus": {
 			"scm/resourceState/context": [
 				{
-					"command": "extension.runGitDifftool"
+					"command": "extension.runGitDifftool",
+                    "when": "scmProvider == git "
 				}
 			]
 		}

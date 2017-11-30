@@ -32,10 +32,13 @@ export function activate(context: vscode.ExtensionContext) {
         var fileName = path.basename(fileFullPath);
 
         var exec = require('child_process').exec;
-        var cmd = 'cd ' + dirName + ' & ' + 'git difftool ' + fileName;
+        var cmd = 'cd /d ' + dirName + ' & ' + 'git difftool ' + fileName;
 
         exec(cmd, function(error, stdout, stderr) {
-        // command output is in stdout
+            // command output is in stdout
+            console.log(JSON.stringify(error));
+            console.log(JSON.stringify(stdout));
+            console.log(JSON.stringify(stderr));
         });
     });
 
